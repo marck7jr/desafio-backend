@@ -3,7 +3,7 @@ using Sydy.Gambling.Football.Data.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sydy.Gambling.Football.Web.API.Services
+namespace Sydy.Gambling.Football.Services
 {
     public class TeamsService : ITeamsService
     {

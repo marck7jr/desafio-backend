@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Sydy.Gambling.Football.Data;
 using Sydy.Gambling.Football.Data.Models;
+using Sydy.Gambling.Football.Services;
 using Sydy.Gambling.Football.Web.API.Infrastructure;
-using Sydy.Gambling.Football.Web.API.Services;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

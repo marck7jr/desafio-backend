@@ -15,11 +15,6 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
 
         [TestMethod]
         [DataRow("Sydy Esports")]
-        [DataRow("Corinthians")]
-        [DataRow("São Paulo")]
-        [DataRow("Cuiabá")]
-        [DataRow("Jangada FC")]
-        [DataRow("Luverdense")]
         public async Task PostAsync_IsConflict_Or_IsSuccessStatusCode(string teamName)
         {
             Team team = new()
@@ -70,7 +65,7 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
         }
 
         [TestMethod]
-        [DataRow(1, "Sydy Editado")]
+        [DataRow(2, "Sydy Editado")]
         public async Task PutAsync_IsSucessStatusCode(int id, string teamName)
         {
             var body = new
@@ -115,9 +110,9 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
         }
 
         [TestMethod]
-        [DataRow(1)]
         [DataRow(2)]
         [DataRow(3)]
+        [DataRow(4)]
         public async Task GetTeamAsync_IsNotNull(int id)
         {
             var response = await _httpClient.GetAsync($"{RequestUri}/{id}");

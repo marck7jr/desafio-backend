@@ -1,7 +1,7 @@
 ﻿using Sydy.Gambling.Football.Data.Models;
 using System.Collections.Generic;
 
-namespace Sydy.Gambling.Football.Web.API.Services
+namespace Sydy.Gambling.Football.Services
 {
     public interface ITeamsService
     {
