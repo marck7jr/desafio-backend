@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sydy.Gambling.Football.Data.Models;
 using Sydy.Gambling.Football.Web.API.Infrastructure;
+using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -31,7 +32,7 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
             }
             else
             {
-                var errorMessage = await GetErrorMessageFromHttpResponseMessageAsync(response);
+                var errorMessage = await GetErrorMessageAsync(response);
 
                 if (response is { StatusCode: HttpStatusCode.Conflict })
                 {
@@ -57,7 +58,7 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
             };
 
             var response = await _httpClient.PostAsJsonAsync(RequestUri, team);
-            var errorMessage = await GetErrorMessageFromHttpResponseMessageAsync(response);
+            var errorMessage = await GetErrorMessageAsync(response);
 
             Assert.IsFalse(response.IsSuccessStatusCode);
 
@@ -77,8 +78,8 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
             var getResponse = await _httpClient.GetAsync($"{RequestUri}/{id}");
             var team = await getResponse.Content.ReadFromJsonAsync<Team>();
 
-            Assert.IsTrue(putResponse.IsSuccessStatusCode, await GetErrorMessageFromHttpResponseMessageAsync(putResponse));
-            Assert.IsTrue(getResponse.IsSuccessStatusCode, await GetErrorMessageFromHttpResponseMessageAsync(getResponse));
+            Assert.IsTrue(putResponse.IsSuccessStatusCode, await GetErrorMessageAsync(putResponse));
+            Assert.IsTrue(getResponse.IsSuccessStatusCode, await GetErrorMessageAsync(getResponse));
             Assert.IsNotNull(team);
             Assert.AreEqual(teamName, team.Name);
 
@@ -97,16 +98,26 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
         }
 
         [TestMethod]
-        public async Task GetAsync_IsNotNull()
+        [DataRow(2, 3)]
+        public async Task GetAsync_IsSucessStatusCode(int page, int size)
         {
-            var response = await _httpClient.GetAsync(RequestUri);
+            var response = await _httpClient.GetAsync($"{RequestUri}?pagina={page}&tamanhoPagina={size}");
             var getTeamsResponse = await response.Content.ReadFromJsonAsync<GetTeamsResponse>();
 
             Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.IsNotNull(getTeamsResponse);
-            Assert.IsTrue(getTeamsResponse.Count > 0);
+            Assert.IsTrue(getTeamsResponse.Teams.Any());
 
             TestContext.WriteLine(JsonSerializer.Serialize(getTeamsResponse));
+        }
+
+        [TestMethod]
+        [DataRow(53, 1000)]
+        public async Task GetAsync_IsNotFoundStatusCode(int page, int size)
+        {
+            var response = await _httpClient.GetAsync($"{RequestUri}?pagina={page}&tamanhoPagina={size}");
+
+            Assert.IsTrue(response is { StatusCode: HttpStatusCode.NotFound });
         }
 
         [TestMethod]

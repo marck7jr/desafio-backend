@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sydy.Gambling.Football.Data.Models;
 
-namespace Sydy.Gambling.Football.Web.API.Tests.Extensions
+namespace Sydy.Gambling.Football.Tests.Extensions
 {
     public static class DbSetExtensions
     {

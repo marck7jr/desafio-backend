@@ -8,7 +8,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.3" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.3" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
 		<PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
 		<PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
@@ -20,6 +19,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\Sydy.Gambling.Football.Web.API\Sydy.Gambling.Football.Web.API.csproj" />
+		<ProjectReference Include="..\Sydy.Gambling.Football.Tests\Sydy.Gambling.Football.Tests.csproj" />
 	</ItemGroup>
 
 </Project>

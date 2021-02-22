@@ -25,7 +25,7 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
 
         // GET: api/Teams
         [HttpGet]
-        public async Task<ActionResult<GetTeamsResponse>> GetTeams(int pagina = 1, int tamanhoPagina = 10)
+        public async Task<ActionResult<GetTeamsResponse>> GetTeams([FromQuery] int pagina = 1, [FromQuery] int tamanhoPagina = 10)
         {
             double teamsCount = await _applicationDbContext.Teams.AsAsyncQueryable().CountAsync();
 
@@ -35,20 +35,25 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
                 .Cast<Team>()
                 .ToListAsync();
 
-            GetTeamsResponse response = new()
+            if (teams.Any())
             {
-                Count = (int)Math.Round(pagesCount, MidpointRounding.AwayFromZero),
-                Page = pagina,
-                Size = tamanhoPagina,
-                Teams = teams,
-            };
+                GetTeamsResponse response = new()
+                {
+                    Count = (int)Math.Round(pagesCount, MidpointRounding.AwayFromZero),
+                    Page = pagina,
+                    Size = tamanhoPagina,
+                    Teams = teams,
+                };
 
-            return response;
+                return response;
+            }
+
+            return NotFound();
         }
 
         // GET: api/Teams/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Team>> GetTeam(int id)
+        public async Task<ActionResult<Team>> GetTeam([FromRoute] int id)
         {
             var team = await _applicationDbContext.Teams.FindAsync(id);
 
@@ -63,7 +68,7 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
         // PUT: api/Teams/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTeam(int id, Team team)
+        public async Task<IActionResult> PutTeam([FromRoute] int id, [FromBody] Team team)
         {
             team.Id = id;
 
@@ -91,7 +96,7 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
         // POST: api/Teams
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Team>> PostTeam(Team team)
+        public async Task<ActionResult<Team>> PostTeam([FromBody] Team team)
         {
             if (ModelState.IsValid)
             {
