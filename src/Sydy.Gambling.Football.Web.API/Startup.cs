@@ -30,7 +30,9 @@ namespace Sydy.Gambling.Football.Web.API
             });
             services.AddSwaggerGen(c =>
             {
+                c.DocInclusionPredicate((name, api) => true);
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sydy.Gambling.Football.Web.API", Version = "v1" });
+                c.TagActionsBy(api => new[] { api.GroupName });
             });
             services.AddScoped<ITeamsService, TeamsService>();
             services.AddScoped<IMatchService, MatchService>();

@@ -4,7 +4,6 @@ using Sydy.Gambling.Football.Data;
 using Sydy.Gambling.Football.Data.Models;
 using Sydy.Gambling.Football.Services;
 using Sydy.Gambling.Football.Web.API.Infrastructure;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +11,7 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
 {
     [Route("api/time")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "Time")]
     public class TeamsController : ControllerBase
     {
         private readonly ApplicationDbContext _applicationDbContext;

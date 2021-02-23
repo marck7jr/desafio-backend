@@ -11,6 +11,7 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
 {
     [Route("api/campeonato")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "Campeonato")]
     public class TournamentController : ControllerBase
     {
         private ApplicationDbContext _applicationDbContext;

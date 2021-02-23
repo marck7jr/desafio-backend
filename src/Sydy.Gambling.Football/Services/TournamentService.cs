@@ -1,5 +1,4 @@
-﻿using Sydy.Gambling.Football.Data;
-using Sydy.Gambling.Football.Data.Models;
+﻿using Sydy.Gambling.Football.Data.Models;
 using System.Data;
 using System.Linq;
 using System.Threading;
