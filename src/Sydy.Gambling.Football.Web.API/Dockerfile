@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["src/Sydy.Gambling.Football.Web.API/Sydy.Gambling.Football.Web.API.csproj", "src/Sydy.Gambling.Football.Web.API/"]
+COPY ["src/Sydy.Gambling.Football/Sydy.Gambling.Football.csproj", "src/Sydy.Gambling.Football/"]
 RUN dotnet restore "src/Sydy.Gambling.Football.Web.API/Sydy.Gambling.Football.Web.API.csproj"
 COPY . .
 WORKDIR "/src/src/Sydy.Gambling.Football.Web.API"

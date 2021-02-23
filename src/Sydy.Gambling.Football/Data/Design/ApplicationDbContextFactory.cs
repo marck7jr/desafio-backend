@@ -10,7 +10,7 @@ namespace Sydy.Gambling.Football.Data.DesignTime
         {
             SqlConnectionStringBuilder connectionStringBuilder = new()
             {
-                DataSource = ".",
+                DataSource = "db",
                 InitialCatalog = "Football",
                 UserID = "SA",
                 Password = "22e18087-93cd-4f23-8edb-7fdc45b5fd55",

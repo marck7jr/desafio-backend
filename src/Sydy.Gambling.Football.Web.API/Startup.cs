@@ -26,7 +26,10 @@ namespace Sydy.Gambling.Football.Web.API
             services.AddControllers();
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("FootballDatabase"));
+                options.UseSqlServer(Configuration.GetConnectionString("FootballDatabase"), builder =>
+                {
+                    builder.EnableRetryOnFailure();
+                });
             });
             services.AddSwaggerGen(c =>
             {
