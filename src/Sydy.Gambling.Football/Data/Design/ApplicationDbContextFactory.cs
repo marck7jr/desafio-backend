@@ -13,7 +13,7 @@ namespace Sydy.Gambling.Football.Data.DesignTime
                 DataSource = ".",
                 InitialCatalog = "Football",
                 UserID = "SA",
-                Password = "468b53d5-e3e8-41db-af46-d9f7977b981f",
+                Password = "22e18087-93cd-4f23-8edb-7fdc45b5fd55",
             };
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()

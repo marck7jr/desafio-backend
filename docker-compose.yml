@@ -1,0 +1,15 @@
+version: "3.4"
+
+services:
+  db:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=22e18087-93cd-4f23-8edb-7fdc45b5fd55
+  sydy.gambling.football.web.api:
+    image: ${DOCKER_REGISTRY-}sydygamblingfootballwebapi
+    build:
+      context: .
+      dockerfile: src/Sydy.Gambling.Football.Web.API/Dockerfile
+    depends_on:
+      - db

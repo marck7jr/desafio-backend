@@ -7,18 +7,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F27A8B7E-368
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{4F4D0A17-81B1-4CB5-BDC8-E1F53DF516BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sydy.Gambling.Football", "src\Sydy.Gambling.Football\Sydy.Gambling.Football.csproj", "{CFA91099-D619-4390-AF91-F15B09612FBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sydy.Gambling.Football", "src\Sydy.Gambling.Football\Sydy.Gambling.Football.csproj", "{CFA91099-D619-4390-AF91-F15B09612FBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sydy.Gambling.Football.Tests", "test\Sydy.Gambling.Football.Tests\Sydy.Gambling.Football.Tests.csproj", "{F8CC5C89-F6EF-45D5-A9C4-A258DF981FDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sydy.Gambling.Football.Tests", "test\Sydy.Gambling.Football.Tests\Sydy.Gambling.Football.Tests.csproj", "{F8CC5C89-F6EF-45D5-A9C4-A258DF981FDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sydy.Gambling.Football.Web.API", "src\Sydy.Gambling.Football.Web.API\Sydy.Gambling.Football.Web.API.csproj", "{E8487761-D659-4006-BCEC-4D0CC8989C0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sydy.Gambling.Football.Web.API", "src\Sydy.Gambling.Football.Web.API\Sydy.Gambling.Football.Web.API.csproj", "{E8487761-D659-4006-BCEC-4D0CC8989C0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sydy.Gambling.Football.Web.API.Tests", "test\Sydy.Gambling.Football.Web.API.Tests\Sydy.Gambling.Football.Web.API.Tests.csproj", "{5EE91BAA-6CDD-45FF-A458-C416D50E87ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sydy.Gambling.Football.Web.API.Tests", "test\Sydy.Gambling.Football.Web.API.Tests\Sydy.Gambling.Football.Web.API.Tests.csproj", "{5EE91BAA-6CDD-45FF-A458-C416D50E87ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{37E8B9C5-5CC7-4749-8CFF-F2CD389E73A8}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B677A41E-FF74-457C-B022-5078AFC9ABFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,6 +80,18 @@ Global
 		{5EE91BAA-6CDD-45FF-A458-C416D50E87ED}.Release|x64.Build.0 = Release|Any CPU
 		{5EE91BAA-6CDD-45FF-A458-C416D50E87ED}.Release|x86.ActiveCfg = Release|Any CPU
 		{5EE91BAA-6CDD-45FF-A458-C416D50E87ED}.Release|x86.Build.0 = Release|Any CPU
+		{B677A41E-FF74-457C-B022-5078AFC9ABFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B677A41E-FF74-457C-B022-5078AFC9ABFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B677A41E-FF74-457C-B022-5078AFC9ABFD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B677A41E-FF74-457C-B022-5078AFC9ABFD}.Debug|x64.Build.0 = Debug|Any CPU
+		{B677A41E-FF74-457C-B022-5078AFC9ABFD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B677A41E-FF74-457C-B022-5078AFC9ABFD}.Debug|x86.Build.0 = Debug|Any CPU
+		{B677A41E-FF74-457C-B022-5078AFC9ABFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B677A41E-FF74-457C-B022-5078AFC9ABFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B677A41E-FF74-457C-B022-5078AFC9ABFD}.Release|x64.ActiveCfg = Release|Any CPU
+		{B677A41E-FF74-457C-B022-5078AFC9ABFD}.Release|x64.Build.0 = Release|Any CPU
+		{B677A41E-FF74-457C-B022-5078AFC9ABFD}.Release|x86.ActiveCfg = Release|Any CPU
+		{B677A41E-FF74-457C-B022-5078AFC9ABFD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
