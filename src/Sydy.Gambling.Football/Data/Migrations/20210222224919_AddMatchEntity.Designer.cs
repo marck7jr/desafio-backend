@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sydy.Gambling.Football.Data;
 
 namespace Sydy.Gambling.Football.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210222224919_AddMatchEntity")]
+    partial class AddMatchEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,15 +31,10 @@ namespace Sydy.Gambling.Football.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("TournamentId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TournamentId");
 
                     b.ToTable("Matches");
                 });
@@ -95,31 +92,6 @@ namespace Sydy.Gambling.Football.Data.Migrations
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("Sydy.Gambling.Football.Data.Models.Tournament", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tournaments");
-                });
-
-            modelBuilder.Entity("Sydy.Gambling.Football.Data.Models.Match", b =>
-                {
-                    b.HasOne("Sydy.Gambling.Football.Data.Models.Tournament", null)
-                        .WithMany("Matches")
-                        .HasForeignKey("TournamentId");
-                });
-
             modelBuilder.Entity("Sydy.Gambling.Football.Data.Models.MatchResult", b =>
                 {
                     b.HasOne("Sydy.Gambling.Football.Data.Models.Match", "Match")
@@ -138,11 +110,6 @@ namespace Sydy.Gambling.Football.Data.Migrations
             modelBuilder.Entity("Sydy.Gambling.Football.Data.Models.Match", b =>
                 {
                     b.Navigation("Results");
-                });
-
-            modelBuilder.Entity("Sydy.Gambling.Football.Data.Models.Tournament", b =>
-                {
-                    b.Navigation("Matches");
                 });
 #pragma warning restore 612, 618
         }

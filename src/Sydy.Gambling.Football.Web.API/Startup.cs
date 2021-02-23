@@ -33,6 +33,8 @@ namespace Sydy.Gambling.Football.Web.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sydy.Gambling.Football.Web.API", Version = "v1" });
             });
             services.AddScoped<ITeamsService, TeamsService>();
+            services.AddScoped<IMatchService, MatchService>();
+            services.AddScoped<ITournamentService, TournamentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

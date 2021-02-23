@@ -1,6 +1,8 @@
-﻿namespace Sydy.Gambling.Football.Data.Models
+﻿using System;
+
+namespace Sydy.Gambling.Football.Data.Models
 {
-    public interface ITeam : IEntity
+    public interface ITeam : IEntity, IEquatable<ITeam>
     {
         public string? Name { get; set; }
     }

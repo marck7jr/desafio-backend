@@ -9,9 +9,9 @@ namespace Sydy.Gambling.Football.MVVM
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public virtual T GetValue<T>(ref T field, [CallerMemberName] string? propertyName = null) => field;
+        protected virtual T GetValue<T>(ref T field, [CallerMemberName] string? propertyName = null) => field;
 
-        public virtual bool SetValue<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+        protected virtual bool SetValue<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(field, value) is bool boolean && !boolean)
             {
@@ -22,7 +22,7 @@ namespace Sydy.Gambling.Football.MVVM
             return !boolean;
         }
 
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        protected virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
 
         }

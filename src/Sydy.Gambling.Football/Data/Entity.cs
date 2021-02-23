@@ -31,7 +31,7 @@ namespace Sydy.Gambling.Football.Data
         [JsonPropertyName("atualizadoEm")]
         public DateTime? UpdatedAt { get => GetValue(ref updatedAt); set => SetValue(ref updatedAt, value); }
 
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        protected override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue(nameof(Id), Id);
             info.AddValue(nameof(CreatedAt), CreatedAt);

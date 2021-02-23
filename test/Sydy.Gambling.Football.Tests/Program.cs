@@ -21,7 +21,9 @@ namespace Sydy.Gambling.Football.Tests
                 .ConfigureServices(services =>
                 {
                     services.AddInMemoryDbContext<ApplicationDbContext>();
+                    services.AddTransient<IMatchService, MatchService>();
                     services.AddTransient<ITeamsService, TeamsService>();
+                    services.AddTransient<ITournamentService, TournamentService>();
 
                     using var scope = services.BuildServiceProvider().CreateScope();
                     var applicationDbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();

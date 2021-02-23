@@ -29,21 +29,13 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
         {
             double teamsCount = await _applicationDbContext.Teams.AsAsyncQueryable().CountAsync();
 
-            double pagesCount = teamsCount / tamanhoPagina;
-
             var teams = await _teamsService.GetTeamsAsync(pagina, tamanhoPagina)
                 .Cast<Team>()
                 .ToListAsync();
 
             if (teams.Any())
             {
-                GetTeamsResponse response = new()
-                {
-                    Count = (int)Math.Round(pagesCount, MidpointRounding.AwayFromZero),
-                    Page = pagina,
-                    Size = tamanhoPagina,
-                    Teams = teams,
-                };
+                GetTeamsResponse response = new(pagina, teamsCount, tamanhoPagina, teams);
 
                 return response;
             }
