@@ -18,6 +18,8 @@ namespace Sydy.Gambling.Football.Data.Models
             yield break;
         }
 
+        public KeyValuePair<ITeam, MatchResultKind> GetResultByTeam(ITeam team) => GetResultsPerTeam().Where(keyValuePair => keyValuePair.Key.Id == team.Id).First();
+
         public ICollection<IMatchResult>? Results { get; set; }
         public IMatchResult? this[int index] => Results?.ElementAtOrDefault(index);
     }

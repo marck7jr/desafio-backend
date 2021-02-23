@@ -170,5 +170,25 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
 
             TestContext.WriteLine(JsonSerializer.Serialize(team));
         }
+
+        [TestMethod]
+        [DataRow(2)]
+        [DataRow(3)]
+        [DataRow(4)]
+        public async Task GetTeamStatsAsync_IsNotNull(int id)
+        {
+            var response = await _httpClient.GetAsync($"{RequestUri}/{id}/estatisticas");
+
+            if (response is { StatusCode: HttpStatusCode.NotFound or HttpStatusCode.NoContent })
+            {
+                Assert.Inconclusive();
+            }
+
+            var getTeamStatsResponse = await response.Content.ReadFromJsonAsync<GetTeamStatsResponse>();
+
+            Assert.IsNotNull(response.IsSuccessStatusCode);
+
+            TestContext.WriteLine(JsonSerializer.Serialize(getTeamStatsResponse, new() { WriteIndented = true }));
+        }
     }
 }

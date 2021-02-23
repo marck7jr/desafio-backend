@@ -22,6 +22,22 @@ namespace Sydy.Gambling.Football.Services
             _applicationDbContext = applicationDbContext;
         }
 
+        public async IAsyncEnumerable<IMatch> GetMatchesAsync(ITeam team, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        {
+            var matches = _applicationDbContext.Matches
+                .Include(matches => matches.Results)
+                .ThenInclude(results => results.Team)
+                .Where(matches => matches.Results!.Any(results => results.Team!.Id == team.Id))
+                .AsAsyncEnumerable();
+
+            await foreach (var match in matches)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+
+                yield return match;
+            }
+        }
+
         public async IAsyncEnumerable<IMatch> GetMatchesAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             var teams = await _applicationDbContext.Teams.AsAsyncQueryable().ToListAsync(cancellationToken);

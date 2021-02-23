@@ -7,5 +7,6 @@ namespace Sydy.Gambling.Football.Services
     public interface IMatchService
     {
         public IAsyncEnumerable<IMatch> GetMatchesAsync(CancellationToken cancellationToken = default);
+        public IAsyncEnumerable<IMatch> GetMatchesAsync(ITeam team, CancellationToken cancellationToken = default);
     }
 }

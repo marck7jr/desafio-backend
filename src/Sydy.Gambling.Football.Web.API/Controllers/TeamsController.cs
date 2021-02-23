@@ -15,15 +15,17 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
     public class TeamsController : ControllerBase
     {
         private readonly ApplicationDbContext _applicationDbContext;
+        private readonly IMatchService _matchService;
         private readonly ITeamsService _teamsService;
 
-        public TeamsController(ApplicationDbContext context, ITeamsService teamsService)
+        public TeamsController(ApplicationDbContext context, IMatchService matchService, ITeamsService teamsService)
         {
             _applicationDbContext = context;
+            _matchService = matchService;
             _teamsService = teamsService;
         }
 
-        // GET: api/Teams
+        // GET: api/time
         [HttpGet]
         public async Task<ActionResult<GetTeamsResponse>> GetTeams([FromQuery] int pagina = 1, [FromQuery] int tamanhoPagina = 10)
         {
@@ -43,7 +45,7 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
             return NotFound();
         }
 
-        // GET: api/Teams/5
+        // GET: api/time/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Team>> GetTeam([FromRoute] int id)
         {
@@ -57,7 +59,31 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
             return team;
         }
 
-        // PUT: api/Teams/5
+
+        // GET: api/time/5/estatisticas
+        [HttpGet("{id}/estatisticas")]
+        public async Task<ActionResult<GetTeamStatsResponse>> GetTeamStats([FromRoute] int id)
+        {
+            var team = await _applicationDbContext.Teams.FindAsync(id);
+
+            if (team is null)
+            {
+                return NotFound();
+            }
+
+            var matches = await _matchService.GetMatchesAsync(team).ToListAsync();
+
+            if (matches is { Count: >= 1 })
+            {
+                GetTeamStatsResponse response = new(team, matches);
+
+                return response;
+            }
+
+            return NoContent();
+        }
+
+        // PUT: api/time/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTeam([FromRoute] int id, [FromBody] Team team)
@@ -92,7 +118,7 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
             return BadRequest(ModelState);
         }
 
-        // POST: api/Teams
+        // POST: api/time
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Team>> PostTeam([FromBody] Team team)
@@ -115,7 +141,7 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
             return BadRequest(ModelState.Values);
         }
 
-        // DELETE: api/Teams/5
+        // DELETE: api/time/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTeam(int id)
         {
