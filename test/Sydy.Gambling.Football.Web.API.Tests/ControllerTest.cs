@@ -17,6 +17,6 @@ namespace Sydy.Gambling.Football.Web.API
 
         public TestContext TestContext { get; set; }
 
-        protected static async ValueTask<string> GetErrorMessageAsync(HttpResponseMessage message) => $"{message}\n{await message.Content.ReadAsStringAsync()}";
+        protected static async ValueTask<string> GetResponseContentAsync(HttpResponseMessage message) => $"{message}\n{await message.Content.ReadAsStringAsync()}";
     }
 }

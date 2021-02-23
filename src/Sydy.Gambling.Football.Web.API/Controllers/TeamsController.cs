@@ -62,27 +62,34 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTeam([FromRoute] int id, [FromBody] Team team)
         {
-            team.Id = id;
-
-            _applicationDbContext.Entry(team).State = EntityState.Modified;
-
-            try
+            if (TeamExists(id))
             {
-                await _applicationDbContext.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TeamExists(id))
+                team.Id = id;
+
+                _applicationDbContext.Entry(team).State = EntityState.Modified;
+
+                try
                 {
-                    return NotFound();
+                    await _applicationDbContext.SaveChangesAsync();
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!TeamExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+
+                return NoContent();
             }
 
-            return NoContent();
+            ModelState.AddModelError(nameof(Team.Id), $"Não existe registro com a chave-primária fornecida.");
+
+            return BadRequest(ModelState);
         }
 
         // POST: api/Teams

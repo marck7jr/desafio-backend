@@ -32,7 +32,7 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
             }
             else
             {
-                var errorMessage = await GetErrorMessageAsync(response);
+                var errorMessage = await GetResponseContentAsync(response);
 
                 if (response is { StatusCode: HttpStatusCode.Conflict })
                 {
@@ -58,7 +58,7 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
             };
 
             var response = await _httpClient.PostAsJsonAsync(RequestUri, team);
-            var errorMessage = await GetErrorMessageAsync(response);
+            var errorMessage = await GetResponseContentAsync(response);
 
             Assert.IsFalse(response.IsSuccessStatusCode);
 
@@ -78,8 +78,13 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
             var getResponse = await _httpClient.GetAsync($"{RequestUri}/{id}");
             var team = await getResponse.Content.ReadFromJsonAsync<Team>();
 
-            Assert.IsTrue(putResponse.IsSuccessStatusCode, await GetErrorMessageAsync(putResponse));
-            Assert.IsTrue(getResponse.IsSuccessStatusCode, await GetErrorMessageAsync(getResponse));
+            if (putResponse is { StatusCode: HttpStatusCode.BadRequest })
+            {
+                Assert.Inconclusive();
+            }
+
+            Assert.IsTrue(putResponse.IsSuccessStatusCode, await GetResponseContentAsync(putResponse));
+            Assert.IsTrue(getResponse.IsSuccessStatusCode, await GetResponseContentAsync(getResponse));
             Assert.IsNotNull(team);
             Assert.AreEqual(teamName, team.Name);
 
@@ -87,11 +92,31 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
         }
 
         [TestMethod]
+        [DataRow(2021, "Sydy Editado")]
+        public async Task PutAsync_IsBadRequestStatusCode(int id, string teamName)
+        {
+            var body = new
+            {
+                nome = teamName
+            };
+
+            var putResponse = await _httpClient.PutAsJsonAsync($"{RequestUri}/{id}", body);
+
+            Assert.IsTrue(putResponse is { StatusCode: HttpStatusCode.BadRequest }, await GetResponseContentAsync(putResponse));
+        }
+
+
+        [TestMethod]
         [DataRow(1)]
         public async Task DeleteAsync_IsSucessStatusCode(int id)
         {
             var deleteResponse = await _httpClient.DeleteAsync($"{RequestUri}/{id}");
             var getResponse = await _httpClient.GetAsync($"{RequestUri}/{id}");
+
+            if (deleteResponse is { StatusCode: HttpStatusCode.NotFound })
+            {
+                Assert.Inconclusive();
+            }
 
             Assert.IsTrue(deleteResponse.IsSuccessStatusCode);
             Assert.IsTrue(getResponse is { StatusCode: HttpStatusCode.NotFound });
@@ -103,6 +128,11 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
         {
             var response = await _httpClient.GetAsync($"{RequestUri}?pagina={page}&tamanhoPagina={size}");
             var getTeamsResponse = await response.Content.ReadFromJsonAsync<GetTeamsResponse>();
+
+            if (response is { StatusCode: HttpStatusCode.NotFound })
+            {
+                Assert.Inconclusive();
+            }
 
             Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.IsNotNull(getTeamsResponse);
@@ -128,6 +158,11 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
         {
             var response = await _httpClient.GetAsync($"{RequestUri}/{id}");
             var team = await response.Content.ReadFromJsonAsync<Team>();
+
+            if (response is { StatusCode: HttpStatusCode.NotFound })
+            {
+                Assert.Inconclusive();
+            }
 
             Assert.IsNotNull(response.IsSuccessStatusCode);
             Assert.IsNotNull(team);

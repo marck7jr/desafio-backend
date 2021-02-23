@@ -21,9 +21,9 @@ namespace Sydy.Gambling.Football.Web.API.Infrastructure
             }
 
             MatchResponses = matchs.Select(match => new GetTournamentMatchResponse(match));
-            First = tournament.GetResults()?.ElementAt(0).Key.Name;
-            Second = tournament.GetResults()?.ElementAt(1).Key.Name;
-            Third = tournament.GetResults()?.ElementAt(2).Key.Name;
+            First = tournament.GetResults()?.ElementAtOrDefault(0).Key?.Name;
+            Second = tournament.GetResults()?.ElementAtOrDefault(1).Key?.Name;
+            Third = tournament.GetResults()?.ElementAtOrDefault(2).Key?.Name;
         }
 
         [JsonPropertyName("partidas")]

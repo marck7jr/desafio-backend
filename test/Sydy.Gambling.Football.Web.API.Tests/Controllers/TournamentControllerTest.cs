@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sydy.Gambling.Football.Web.API.Infrastructure;
 using System.Linq;
+using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -16,6 +17,12 @@ namespace Sydy.Gambling.Football.Web.API.Tests.Controllers
         public async Task GetAsync_IsNotNull()
         {
             var response = await _httpClient.GetAsync(RequestUri);
+
+            if (response is { StatusCode: HttpStatusCode.NoContent })
+            {
+                Assert.Inconclusive();
+            }
+
             var getTournamentResponse = await response.Content.ReadFromJsonAsync<GetTournamentResponse>();
 
             Assert.IsTrue(response.IsSuccessStatusCode);

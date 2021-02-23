@@ -3,6 +3,8 @@ using Sydy.Gambling.Football.Data;
 using Sydy.Gambling.Football.Data.Models;
 using Sydy.Gambling.Football.Services;
 using Sydy.Gambling.Football.Web.API.Infrastructure;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Sydy.Gambling.Football.Web.API.Controllers
@@ -21,16 +23,21 @@ namespace Sydy.Gambling.Football.Web.API.Controllers
         }
 
         [HttpGet]
-        public async Task<GetTournamentResponse> GetTournament()
+        public async Task<ActionResult<GetTournamentResponse>> GetTournament()
         {
             var tournament = (Tournament)await _tournamentService.GetTournamentAsync();
 
-            _applicationDbContext.Tournaments.Add(tournament);
-            await _applicationDbContext.SaveChangesAsync();
+            if (tournament is { Matches: ICollection<Match> matches } && matches.Any())
+            {
+                _applicationDbContext.Tournaments.Add(tournament);
+                await _applicationDbContext.SaveChangesAsync();
 
-            GetTournamentResponse response = new(tournament);
+                GetTournamentResponse response = new(tournament);
 
-            return response;
+                return response;
+            }
+
+            return NoContent();
         }
     }
 }

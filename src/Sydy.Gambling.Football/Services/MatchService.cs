@@ -26,6 +26,11 @@ namespace Sydy.Gambling.Football.Services
         {
             var teams = await _applicationDbContext.Teams.AsAsyncQueryable().ToListAsync(cancellationToken);
 
+            if (teams.Count < 4)
+            {
+                yield break;
+            }
+
             int k = 1;
 
             for (int i = 0; i < teams.Count; i++)
