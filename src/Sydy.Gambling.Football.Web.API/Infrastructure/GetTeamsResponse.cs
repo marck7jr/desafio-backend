@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace Sydy.Gambling.Football.Web.API.Infrastructure
 {
-    public class GetTeamsResponse : IGetTeamsResponse
+    public class GetTeamsResponse
     {
         public GetTeamsResponse()
         {

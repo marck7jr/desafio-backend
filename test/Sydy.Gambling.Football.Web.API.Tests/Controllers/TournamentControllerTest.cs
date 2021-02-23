@@ -27,7 +27,7 @@ namespace Sydy.Gambling.Football.Web.API.Tests.Controllers
 
             Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.IsNotNull(getTournamentResponse);
-            Assert.IsTrue(getTournamentResponse.MatchResponses.Any());
+            Assert.IsTrue(getTournamentResponse.Matchs.Any());
             Assert.IsTrue(!string.IsNullOrEmpty(getTournamentResponse.First));
             Assert.IsTrue(!string.IsNullOrEmpty(getTournamentResponse.Second));
             Assert.IsTrue(!string.IsNullOrEmpty(getTournamentResponse.Third));
