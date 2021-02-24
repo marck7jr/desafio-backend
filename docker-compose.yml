@@ -18,3 +18,4 @@ services:
       dockerfile: src/Sydy.Gambling.Football.Web.API/Dockerfile
     depends_on:
       - db
+    restart: on-failure
